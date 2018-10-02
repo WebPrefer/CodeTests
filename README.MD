@@ -2,7 +2,7 @@
 
 # Task
 Implement the bet and win controllers. You can use any classes in the .Net framework and in the BL folder. 
-You can setup static instances of the services if you want to preserve the state between request. Warning, they are not thread safe so stay away from concurrent requests, this is not a web scale implementation :) 
+You can setup static instances of the services if you want to preserve the state between request. Warning, they are not thread safe so stay away from concurrent requests, this is not a web scale implementation :) You are also free to extend the implementations or fix any issues you may find.
 
 # Specification
 
@@ -28,8 +28,10 @@ Request
 Response:
 ```
 {
-	"TransactionId": string, // Unique transaction identifier, can use internal representation
-	"Balance": decimal // Players balance
+	"TransactionId": string, // Unique transaction identifier, can use internal representation, only needed if ErrorCode = NoError
+	"Balance": decimal, // Players balance,
+	"ErrorCode": string // Can be any of NoError, InsufficentFunds, InvalidCurrency, ResponsibleGamblingLimitsMet, UnkownError
+	"ErrorMessage": string // Can be set to a custom message in case of UnkownError
 }
 ```
 
@@ -48,7 +50,9 @@ Request
 Response:
 ```
 {
-	"TransactionId": string, // Unique transaction identifier, can use internal representation
-	"Balance": decimal // Players balance
+	"TransactionId": string, // Unique transaction identifier, can use internal representation, only needed if ErrorCode = NoError
+	"Balance": decimal, // Players balance,
+	"ErrorCode": string // Can be any of NoError, InsufficentFunds, InvalidCurrency, ResponsibleGamblingLimitsMet, UnkownError
+	"ErrorMessage": string // Can be set to a custom message in case of UnkownError
 }
 ```
