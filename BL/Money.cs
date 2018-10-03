@@ -26,5 +26,61 @@ namespace WebPrefer.Tests.BL
 
             return new Money(a.Currency, a.Amount - b.Amount);
         }
+
+        public static Money operator *(Money a, Money b)
+        {
+            if (a.Currency != b.Currency) throw new InvalidOperationException("currency mismatch");
+
+            return new Money(a.Currency, a.Amount * b.Amount);
+        }
+
+        public static Money operator /(Money a, Money b)
+        {
+            if (a.Currency != b.Currency) throw new InvalidOperationException("currency mismatch");
+
+            return new Money(a.Currency, a.Amount / b.Amount);
+        }
+
+        public static bool operator <(Money a, Money b)
+        {
+            if (a.Currency != b.Currency) throw new InvalidOperationException("currency mismatch");
+
+            return a.Amount < b.Amount;
+        }
+
+        public static bool operator >(Money a, Money b)
+        {
+            if (a.Currency != b.Currency) throw new InvalidOperationException("currency mismatch");
+
+            return a.Amount > b.Amount;
+        }
+
+        public static bool operator ==(Money a, Money b)
+        {
+            if (a.Currency != b.Currency) throw new InvalidOperationException("currency mismatch");
+
+            return a.Amount == b.Amount;
+        }
+
+        public static bool operator !=(Money a, Money b)
+        {
+            if (a.Currency != b.Currency) throw new InvalidOperationException("currency mismatch");
+
+            return a.Amount != b.Amount;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Money))
+                return false;
+
+            return this == (Money)obj;
+        }
+
+        public override int GetHashCode()
+            => base.GetHashCode();
+
+        public override string ToString()
+            => $"{Currency} {Amount}";
     }
 }
