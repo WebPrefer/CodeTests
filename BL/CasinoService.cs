@@ -57,25 +57,35 @@ namespace WebPrefer.Tests.BL
                 throw new TransactionAlreadyProcessedException(_processedTransactions[externalTransactionId]);
             }
 
-            if (!_rounds.ContainsKey(externalRoundId))
+            if (!_rounds.TryGetValue(externalRoundId, out var round))
             {
                 throw new MissingRoundException();
             }
 
-            var round = _rounds[externalRoundId];
             if (round.Ended)
             {
                 throw new RoundEndedException();
             }
 
             round.TotalWin += amount;
-            round.Ended = true;
 
             var transactionId = ++_lastTransactionId;
 
             await _walletService.Credit(playerId, amount);
 
             return transactionId;
+        }
+
+        public Task EndRound(long externalRoundId)
+        {
+            if (!_rounds.TryGetValue(externalRoundId, out var round))
+            {
+                throw new MissingRoundException();
+            }
+
+            round.Ended = true;
+
+            return Task.FromResult(0);
         }
     }
 
