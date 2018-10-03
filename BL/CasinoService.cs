@@ -40,7 +40,7 @@ namespace WebPrefer.Tests.BL
 
             var transactionId = ++_lastTransactionId;
 
-            if ((await _walletService.GetBalance(playerId, amount.Currency)).Amount < amount.Amount)
+            if (await _walletService.GetBalance(playerId, amount.Currency) < amount)
             {
                 throw new InsufficientFundsException();
             }

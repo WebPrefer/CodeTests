@@ -31,7 +31,11 @@ namespace WebPrefer.Tests.BL
 
         public Task Debit(int playerId, Money amount)
         {
-            _wallets[playerId] += amount;
+            if (_wallets[playerId] < amount)
+                throw new InsufficientFundsException();
+
+            _wallets[playerId] -= amount;
+
             return Task.FromResult(0);
         }
     }
