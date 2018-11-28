@@ -1,14 +1,22 @@
 ﻿using System;
+using System.Linq;
 
 namespace WebPrefer.Tests.BL
 {
     public struct Money
     {
+        public static readonly string[] SupportedCurrencies = new string[] { "EUR", "SEK" };
+
         public string Currency { get; }
         public decimal Amount { get; }
 
         public Money(string currency, decimal amount = 0m)
         {
+            if (!SupportedCurrencies.Contains(currency))
+            {
+                throw new ArgumentException($"{currency} not supported", nameof(currency));
+            }
+
             Currency = currency;
             Amount = amount;
         }

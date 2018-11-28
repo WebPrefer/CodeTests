@@ -52,7 +52,7 @@ Response:
 {
 	"TransactionId": string, // Unique transaction identifier, can use internal representation, only needed if ErrorCode = NoError
 	"Balance": decimal, // Players balance,
-	"ErrorCode": string // Can be any of NoError, InsufficentFunds, InvalidCurrency, ResponsibleGamblingLimitsMet, UnkownError
+	"ErrorCode": string // Can be any of NoError, InsufficentFunds, InvalidCurrency, ResponsibleGamblingLimitsMet, RoundDoesNotExist, UnkownError
 	"ErrorMessage": string // Can be set to a custom message in case of UnkownError
 }
 ```
